@@ -1,0 +1,301 @@
+body {
+    font-family: Comic Sans MS, sans-serif;
+    text-align: center;
+    background: #fdf6e3;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #6c5ce7;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(90deg, #6c5ce7, #00c2ff);
+    color: white;
+    cursor: pointer;
+  }
+  /* Hover effect */
+button:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  /* Active (when clicked) */
+  button:active {
+    transform: scale(0.95);
+  }
+  #cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  /* Use Canva background */
+body {
+    background: url("assets/background.png") no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  /* Remove any old id-specific styles for #show-squares / #show-cubes */
+#show-squares, #show-cubes { background: none; }
+
+/* Shared style for all Canva image buttons */
+.img-btn {
+    width: 200px;
+    height: 60px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    /* text-indent: -9999px; /* hides text visually but screen readers still read it */
+  /* text styles */
+  color: #6c5ce7;      /* same purple as your header */
+  font-weight: bold;
+  font-size: 20px;     /* increase size */
+  text-align: center;
+  line-height: 45px;   /* vertically center the text */ 
+
+ }
+  /* Hover effect for Canva buttons */
+.img-btn:hover {
+    transform: scale(1.1);             /* grow a little */
+    filter: brightness(1.1);           /* make the colors pop */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* soft glow */
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .img-btn:active {
+    transform: scale(0.95);            /* shrink slightly when clicked */
+  }
+  
+  /* Individual button images */
+  #show-squares {
+    background-image: url("assets/btn-squares.png");
+  }
+  
+  #show-cubes {
+    background-image: url("assets/btn-squares.png");
+  }
+  
+
+  .quiz-box {
+    background: white;             /* plain background */
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 400px;              /* keeps it a neat rectangle */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  .quiz-box h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .quiz-choice {
+    display: inline-block;
+    margin: 6px;
+    padding: 10px 16px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #6c5ce7, #00c2ff);
+    color: white;
+    font-weight: bold;
+    transition: transform 0.15s ease;
+  }
+  
+ /* ✅ Hover effect */
+.quiz-choice:hover {
+    transform: scale(1.1); /* makes it pop a bit bigger */
+    background: linear-gradient(90deg, #00c2ff, #6c5ce7); /* swap gradient */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* add glow */
+  }
+  
+  .cat-particle {
+    position: fixed;
+    z-index: 9999;           /* stay above everything */
+    pointer-events: none;    /* never block clicks */
+    animation: catFloat 3s ease-out forwards;  /* was 1.5s */
+    will-change: transform, opacity;
+  }
+  
+  /* floats ~70% of the screen height with a tiny drift */
+  @keyframes catFloat {
+    0%   { transform: translate(var(--drift, 0px), 0) scale(1);   opacity: 1; }
+    100% { transform: translate(var(--drift, 0px), -70vh) scale(1.2) rotate(12deg); opacity: 0; }
+  }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cat-particle { animation-duration: 1s; }
+  }
+  /* Quiz container header */
+.quiz-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .progress { font-weight: 700; }
+  
+  .timer {
+    background: #f3f4f6;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    min-width: 64px;
+    text-align: center;
+  }
+  
+  /* Question wrapper inside the box */
+  .qwrap h3 {
+    margin: 6px 0 10px;
+    font-size: 22px;
+    color: #333;
+  }
+  
+  /* Row of answer choices */
+  .choices-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  /* End-of-quiz wrong answer list */
+  .wrong-list {
+    max-height: 220px;
+    overflow: auto;
+    margin-top: 8px;
+    text-align: left;
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 8px 10px;
+    border: 1px solid #eee;
+  }
+  
+  .wrong-row { padding: 6px 2px; }
+  
+  /* If you don't already have .quiz-box from earlier: */
+  .quiz-box {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 520px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  /* --- Progress bar under the header --- */
+.meter{
+    height: 10px;
+    background: #eef2ff;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 6px 0 14px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.08);
+  }
+  .meter-fill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6c5ce7, #00c2ff);
+    transition: width .25s ease;
+  }
+  
+  /* --- Subtle shake when wrong --- */
+  @keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-4px); }
+    40%  { transform: translateX(4px); }
+    60%  { transform: translateX(-3px); }
+    80%  { transform: translateX(3px); }
+    100% { transform: translateX(0); }
+  }
+  .shake { animation: shake 0.35s ease; }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .meter-fill { transition: none; }
+    .shake { animation: none; }
+  }
+  /* ===== Pre-quiz gate (overlay) ===== */
+.gate-overlay{
+    position: fixed; inset: 0; z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,.55);
+  }
+  .gate-card{
+    width: min(560px, calc(100% - 32px));
+    background: #fff; border-radius: 18px; padding: 20px;
+    text-align: center; box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  }
+  .gate-card h2{ margin: 0 0 6px; font-size: 26px; color: #6c5ce7; }
+  .gate-card p{ margin: 6px 0; }
+  
+  .tiers{
+    margin: 10px 0 14px;
+    border: 1px solid #eee; border-radius: 12px; padding: 10px;
+    background: #fafafa;
+  }
+  .tiers-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 4px 0; }
+  .tiers-row strong{ color:#111; }
+  .tiers-row span{ color:#555; }
+  
+  .gate-actions{ margin-top: 10px; }
+  .gate-btn{
+    border: none; border-radius: 12px; padding: 12px 18px;
+    background: linear-gradient(90deg,#6c5ce7,#00c2ff); color:#fff;
+    font-weight: 800; cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0,0,0,.15);
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .gate-btn:hover{ transform: scale(1.05); filter: brightness(1.05); }
+  
+  /* ===== Countdown styling ===== */
+  .countdown{
+    font-size: 72px; font-weight: 900; line-height: 1;
+    color:#6c5ce7; text-shadow: 0 0 14px rgba(108,92,231,.5);
+    animation: flash .6s ease both;
+  }
+  .countdown.go{
+    font-size: 64px; color:#00c2ff; text-shadow: 0 0 16px rgba(0,194,255,.55);
+    animation: flash .6s ease both, bump .6s ease both;
+  }
+  
+  @keyframes flash{ from{opacity:.2} to{opacity:1} }
+  @keyframes bump{ 0%{transform:scale(.9)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+  
+  @media (prefers-reduced-motion: reduce){
+    .countdown{ animation: none; }
+    .gate-btn{ transition: none; }
+  }
+  
