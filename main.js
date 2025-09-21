@@ -152,41 +152,79 @@ function openReadyGate(mode){
     return 60; // 100%
   }
   
-
+  function ensureStickyBar(mode){
+    // create once
+    let bar = document.querySelector(".sticky-bar");
+    if (!bar){
+      bar = document.createElement("div");
+      bar.className = "sticky-bar";
+      bar.innerHTML = `
+        <div class="sticky-left">
+          <span class="sticky-title">Squares & Cubes</span>
+          <span class="badge"></span>
+        </div>
+  
+        <div class="sticky-meter">
+          <div class="meter"><div class="meter-fill"></div></div>
+        </div>
+  
+        <div class="sticky-right">
+          <span class="progress"></span>
+          <span class="timer"></span>
+        </div>
+      `;
+      // insert above your quiz area
+      quizArea.parentNode.insertBefore(bar, quizArea);
+    }
+    // set the mode badge text
+    const badge = bar.querySelector(".badge");
+    badge.textContent = mode === "squares" ? "Squares (1–20)" : "Cubes (1–12)";
+    if (!bar.dataset.shadowBound) {
+        const onScroll = () => {
+          const scrolled = window.scrollY > 4; // small threshold
+          bar.classList.toggle("scrolled", scrolled);
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll(); // set initial state
+        bar.dataset.shadowBound = "1";
+      }
+  }
+  
 // ====== START / TIMER / FRAME ======
 function startMode(mode){
-  clearTimer();
-  state.mode = mode;
-  state.current = 0;
-  state.score = 0;
-  state.wrong = [];
-  state.timeLeftMs = QUIZ_TIME_MS;
-  state.timeStart = Date.now();
-  state.baseQueue = buildBaseQueue(mode);
-  state.retryQueue = [];
-  state.lastN = null;
-
-  renderFrame();
-  startTimer();
-  updateProgressUI();   // ✅ add this
-  nextQuestion();
-}
-
-function startTimer(){
-  const timerEl = quizArea.querySelector(".timer");
-  state.timerId = setInterval(() => {
-    const elapsed = Date.now() - state.timeStart;
-    state.timeLeftMs = QUIZ_TIME_MS - elapsed;
-    if (state.timeLeftMs <= 0) {
-      state.timeLeftMs = 0;
-      timerEl.textContent = formatTime(0);
-      endQuiz("time");
-      return;
-    }
-    timerEl.textContent = formatTime(state.timeLeftMs);
-  }, 250);
-}
-
+    clearTimer();
+    state.mode = mode;
+    state.current = 0;
+    state.score = 0;
+    state.wrong = [];
+    state.timeLeftMs = QUIZ_TIME_MS;
+    state.timeStart = Date.now();
+    state.baseQueue = buildBaseQueue(mode);
+    state.retryQueue = [];
+    state.lastN = null;
+  
+    ensureStickyBar(mode);   // 👈 add this
+  
+    renderFrame();
+    startTimer();
+    updateProgressUI();
+    nextQuestion();
+  }
+  
+  function startTimer(){
+    state.timerId = setInterval(() => {
+      const elapsed = Date.now() - state.timeStart;
+      state.timeLeftMs = QUIZ_TIME_MS - elapsed;
+      const left = Math.max(0, state.timeLeftMs);
+      const txt = formatTime(left);
+      document.querySelectorAll(".timer").forEach(t => t.textContent = txt);
+      if (left <= 0){
+        endQuiz("time");
+        clearTimer();
+      }
+    }, 250);
+  }
+  
 function renderFrame(){
   quizArea.innerHTML = "";
   const wrap = document.createElement("div");
@@ -411,13 +449,14 @@ function celebrateWithCats() {
     setTimeout(() => span.remove(), 3200);
   }
 }
-function updateProgressUI() {
-    const p = quizArea.querySelector(".progress");
-    const fill = quizArea.querySelector(".meter-fill");
-    if (p) p.textContent = `Q ${Math.min(state.current + 1, QUIZ_LEN)} / ${QUIZ_LEN}`;
-    if (fill) {
+function updateProgressUI(){
+    const qNum = Math.min(state.current + 1, QUIZ_LEN);
+    document.querySelectorAll(".progress").forEach(p => {
+      p.textContent = `Q ${qNum} / ${QUIZ_LEN}`;
+    });
+    document.querySelectorAll(".meter-fill").forEach(fill => {
       const pct = Math.min(state.current, QUIZ_LEN) / QUIZ_LEN * 100;
       fill.style.width = `${pct}%`;
-    }
+    });
   }
-  
+    
