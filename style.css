@@ -354,4 +354,70 @@ body {
     box-shadow: 0 6px 16px rgba(0,0,0,.12);
     background: rgba(255,255,255,.92);
   }
+  /* ===== Mobile-first sizing tweaks ===== */
+@media (max-width: 640px){
+    /* Bigger, clearer titles */
+    h1 { font-size: clamp(22px, 6.5vw, 30px); }
+    h2 { font-size: clamp(18px, 5.5vw, 24px); }
+  
+    /* Test Squares / Test Cubes buttons */
+    .img-btn{
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 44vw;                 /* two buttons side-by-side */
+      height: 64px;
+      font-size: 18px;
+      line-height: 1;
+      margin: 8px 6px;
+    }
+  
+    /* Quiz card bigger and edge-to-edge */
+    .quiz-box{
+      max-width: 96vw;
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.95);
+    }
+  
+    /* Sticky header becomes 2-row, roomier meter */
+    .sticky-bar{
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      padding: 10px 12px;
+    }
+    .sticky-left{ order: 1; }
+    .sticky-right{ order: 2; gap: 10px; }
+    .sticky-meter{ order: 3; width: 100%; max-width: none; }
+    .timer, .progress{ font-weight: 800; }
+    .timer{ min-width: 64px; padding: 6px 10px; }
+  
+    /* Answers: two columns with large tap targets */
+    .choices-row{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .quiz-choice{
+      width: 100%;
+      min-height: 48px;            /* thumb-friendly */
+      font-size: 18px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
+    }
+  
+    /* Hide the in-card topbar/meter (we use sticky one) */
+    .quiz-topbar, .meter{ display: none !important; }
+  }
+  
+  /* Slight darken overlay behind busy background to boost readability */
+  body::before{
+    content: "";
+    position: fixed; inset: 0;
+    background: rgba(255,255,255,0.06);   /* tweak 0.04–0.10 to taste */
+    pointer-events: none;
+  }
+  @media (max-width: 640px){
+    .quick-intro{ display: none; }
+  }
   
